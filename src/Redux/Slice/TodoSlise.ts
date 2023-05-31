@@ -27,6 +27,7 @@ type ItemType = {
     text: string,
     preority_id: number,
     data:string
+    completed:boolean
 }
 
 interface initialStateType {
@@ -45,7 +46,7 @@ const TodoSlise = createSlice({
     initialState,
     reducers: {
         addTodo(state, action: PayloadAction<ItemType>) {
-            state.item.push(action.payload)
+          state.item =  [...state.item,action.payload]
         },
         // getSearchValue(state, action: PayloadAction<string>) {
         //     state.searchValue = action.payload

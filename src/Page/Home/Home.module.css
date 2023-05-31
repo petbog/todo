@@ -1,0 +1,43 @@
+.home_label{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 135px 0 0 0;
+}
+.home_input{
+    width: 540px;
+    height: 30px;
+    border-radius: 10px;
+    padding: 0 135px 0px 39px;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+.home_button{
+    position: absolute;
+    top: 1px;
+    border-radius: 0 10px 10px 0;
+    padding: 6px 15px 6px 15px;
+    right: 241px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.deleteString{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: -3px;
+    right: 332px;
+    cursor: pointer;
+}
+.penIcon{
+    position: absolute;
+    top: 0px;
+    left: 247px;
+    width: 32px;
+    height: 32px;
+}
+.block_container{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}

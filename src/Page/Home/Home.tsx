@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import s from './Home.module.css'
 import { useAppDispatch } from '../../Redux'
-import { addTodo, todoSelector } from '../../Redux/Slice/TodoSlise'
-import { useSelector } from 'react-redux'
+import { addTodo } from '../../Redux/Slice/TodoSlise'
+import deleteString from '../../img/icons8-крестик-78.png'
+import penIcon from '../../img/icons8-ручка-100.png'
+import BlockTodo from '../../Component/BlockTodo/BlockTodo'
 
-const Home = () => {
+const Home: React.FC = () => {
     const dispatch = useAppDispatch()
-    const {item} =useSelector(todoSelector)
     const [text, setText] = useState('')
     const [todoItem, setTodoItem] = useState('')
     const [id, setId] = useState(1)
@@ -15,34 +16,37 @@ const Home = () => {
     const HandleClick = () => {
         setTodoItem(text)
         setText('')
-        if(text){
-            setId(id +1)
+        if (text) {
+            setId(id + 1)
         }
-       if(text && id ) {dispatch(addTodo({
-            id:id,
-            text:text,
-            preority_id:2,
-            data: new Date().toLocaleString()
-        }))}
+        if (text && id) {
+            dispatch(addTodo({
+                id: id,
+                text: text,
+                preority_id: 2,
+                data: new Date().toLocaleString(),
+                completed:false
+            }))
+        }
     }
 
+    const deleteTextInput = () => {
+        setText('')
+    }
 
 
     return (
         <div className={s.home}>
-            <label className="">
-                <input value={text} type="text" onChange={(e) => { setText(e.currentTarget.value) }} />
-                <button onClick={HandleClick} >add todo</button>
-            </label>
-            <div className="">
+            <label className={s.home_label}>
+                <img className={s.penIcon} src={penIcon} alt="penIcon" />
+                <input className={s.home_input} value={text} type="text" onChange={(e) => { setText(e.currentTarget.value) }} />
                 {
-                    item.map((todo,id)=>
-                        <div className="" key={id}>
-                            {todo.text}
-                            <p className=""> {todo.data}</p>
-                        </div>
-                    )
+                    text ? <img onClick={deleteTextInput} className={s.deleteString} src={deleteString} alt="deleteString" /> : ''
                 }
+                <button className={s.home_button} onClick={HandleClick} >add todo</button>
+            </label>
+            <div className={s.block_container}>
+                <BlockTodo />
             </div>
         </div>
     )
