@@ -22,23 +22,34 @@ enum Status {
     Succsess = 'success',
     Error = 'error',
 }
-type ItemType = {
+export  type ItemType = {
     id: number,
     text: string,
     preority_id: number,
-    data:string
-    completed:boolean
+    data: string,
+    completed: boolean,
+    sort: string
+}
+type sortType = {
+    name: string,
+    priority: string
 }
 
 interface initialStateType {
     item: ItemType[],
-    status: Status
+    status: Status,
+    sort: sortType
 
 }
+
 
 const initialState: initialStateType = {
     item: [],
     status: Status.Loading,
+    sort: {
+        name: 'Важно',
+        priority: 'Важно'
+    }
 }
 
 const TodoSlise = createSlice({
@@ -46,7 +57,14 @@ const TodoSlise = createSlice({
     initialState,
     reducers: {
         addTodo(state, action: PayloadAction<ItemType>) {
-          state.item =  [...state.item,action.payload]
+            state.item = [...state.item, action.payload]
+        },
+        activSortItem(state, action: PayloadAction<sortType>) {
+            state.sort = action.payload
+        },
+        removeTodo(state, action: PayloadAction<ItemType>) {
+            const { id } = action.payload;
+            state.item = state.item.filter(item => item.id !== id)
         },
         // getSearchValue(state, action: PayloadAction<string>) {
         //     state.searchValue = action.payload
@@ -88,6 +106,6 @@ const TodoSlise = createSlice({
 
 export const todoSelector = (state: RootState) => state.todo
 
-export const { addTodo } = TodoSlise.actions
+export const { addTodo, activSortItem,removeTodo } = TodoSlise.actions
 export default TodoSlise.reducer
 

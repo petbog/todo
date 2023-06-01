@@ -1,23 +1,26 @@
-import { useState } from 'react'
+import { useState, } from 'react'
 import s from './Home.module.css'
 import { useAppDispatch } from '../../Redux'
-import { addTodo } from '../../Redux/Slice/TodoSlise'
+import { addTodo, todoSelector } from '../../Redux/Slice/TodoSlise'
 import deleteString from '../../img/icons8-крестик-78.png'
 import penIcon from '../../img/icons8-ручка-100.png'
 import BlockTodo from '../../Component/BlockTodo/BlockTodo'
+import { useSelector } from 'react-redux'
+import Priority from '../../Component/Priority/Priority'
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch()
+    const { sort } = useSelector(todoSelector)
     const [text, setText] = useState('')
     const [todoItem, setTodoItem] = useState('')
-    const [id, setId] = useState(1)
+    const [id, setId] = useState(2)
 
 
     const HandleClick = () => {
         setTodoItem(text)
         setText('')
         if (text) {
-            setId(id + 1)
+            setId(Math.floor(Math.random() * 10000))
         }
         if (text && id) {
             dispatch(addTodo({
@@ -25,10 +28,12 @@ const Home: React.FC = () => {
                 text: text,
                 preority_id: 2,
                 data: new Date().toLocaleString(),
-                completed:false
+                completed: false,
+                sort:sort.priority
             }))
         }
     }
+
 
     const deleteTextInput = () => {
         setText('')
@@ -45,6 +50,7 @@ const Home: React.FC = () => {
                 }
                 <button className={s.home_button} onClick={HandleClick} >add todo</button>
             </label>
+                <Priority />
             <div className={s.block_container}>
                 <BlockTodo />
             </div>

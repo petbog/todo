@@ -1,0 +1,14 @@
+.priority{
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    max-width: 717px;
+    margin: 20px auto 0 auto;
+}
+.priority li{
+    margin-left: 20px;
+}
+.active{
+    color: brown;
+}
