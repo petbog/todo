@@ -1,43 +1,75 @@
-
-.text{
-    padding: 0 6px;
-    word-break:break-all;
-    width: 640px;
-    min-height: 25px;
+.text {
+  padding: 0 6px;
+  word-break: break-all;
+  width: 640px;
+  min-height: 25px;
 }
 
-.delete{
-    color: red;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  ul{
-     list-style: none;
-  }
-  .todo_container{
-    width: 1000px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-  }
-  input:checked+div{
-    text-decoration: line-through;
-  }
-  .todo_time{
-    display: flex;
-    justify-content: space-between;
-  }
-  .item{
-    display: flex;
-  }
-  .penIcon{
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    margin: 0 0 0 7px;
-  }
-  .data{
-    margin-left: 10px;
-  }
+.delete {
+  color: red;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+ul {
+  list-style: none;
+}
+
+.todo_container {
+  width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+input:checked+div {
+  text-decoration: line-through;
+}
+
+.todo_time {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item {
+  display: flex;
+}
+
+.penIcon {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  margin: 0 0 0 7px;
+}
+
+.data {
+  margin-left: 10px;
+}
+
+.popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 300px;
+  min-height: 69px;
+  padding: 15px 15px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.popup input {
+  width: 285px;
+  min-height: 25px;
+  border-radius: 10px;
+  padding: 0 10px;
+
+}
+
+.popup p {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+}

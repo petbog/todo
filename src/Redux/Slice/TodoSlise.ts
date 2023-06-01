@@ -66,6 +66,9 @@ const TodoSlise = createSlice({
             const { id } = action.payload;
             state.item = state.item.filter(item => item.id !== id)
         },
+        todoEdit(state, action: PayloadAction<ItemType[]>) {
+            state.item = action.payload
+        },
         // getSearchValue(state, action: PayloadAction<string>) {
         //     state.searchValue = action.payload
         // },
@@ -106,6 +109,6 @@ const TodoSlise = createSlice({
 
 export const todoSelector = (state: RootState) => state.todo
 
-export const { addTodo, activSortItem,removeTodo } = TodoSlise.actions
+export const { addTodo, activSortItem,removeTodo,todoEdit } = TodoSlise.actions
 export default TodoSlise.reducer
 
