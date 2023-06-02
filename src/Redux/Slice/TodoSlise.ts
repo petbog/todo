@@ -4,17 +4,30 @@ import { RootState } from "..";
 
 
 // type ParamsType = {
-
+//     id: number,
+//     text: string,
+//     preority_id: number,
+//     date: string,
+//     sort: string
 // }
 
 // export const TodoFetch = createAsyncThunk(
-//     'search/SearchVideo',
+//     'todo/TodoFetch',
 //     async function (params:ParamsType) {
-//         const { } = params
-//         const { data } = await axios.get<ItemType[]>(``)
+//         const {id,text,preority_id,date,sort } = params
+//         const { data } = await axios.post<ItemType[]>(`https://test.ananievds.ru/note_add`,{id,text,preority_id,date,sort })
+//         console.log(data)
 //         return data as ItemType[]
 //     }
 // )
+export const getTodo = createAsyncThunk(
+    'todo/TodoFetch',
+    async function () {
+        const { data } = await axios.get(`https://test.ananievds.ru/notes_list`)
+        console.log(data)
+        return data as ItemType[]
+    }
+)
 
 
 enum Status {
@@ -22,12 +35,11 @@ enum Status {
     Succsess = 'success',
     Error = 'error',
 }
-export  type ItemType = {
+export type ItemType = {
     id: number,
     text: string,
     preority_id: number,
-    data: string,
-    completed: boolean,
+    date: string,
     sort: string
 }
 type sortType = {
@@ -69,28 +81,19 @@ const TodoSlise = createSlice({
         todoEdit(state, action: PayloadAction<ItemType[]>) {
             state.item = action.payload
         },
-        // getSearchValue(state, action: PayloadAction<string>) {
-        //     state.searchValue = action.payload
-        // },
-        // setSortType(state, action: PayloadAction<SortType>) {
-        //     state.sort = action.payload
-        // },
-        // setCountVideo(state, action: PayloadAction<number>) {
-        //     state.countVideo = action.payload
-        // }
     },
     extraReducers: (builder) => {
-        // builder.addCase(TodoFetch.pending, (state) => {
-        //     state.status = Status.Loading
-        // })
-        // builder.addCase(TodoFetch.fulfilled, (state, action) => {
-        //     state.status =Status.Succsess
-        //     state.item = action.payload
+        builder.addCase(getTodo.pending, (state) => {
+            state.status = Status.Loading
+        })
+        builder.addCase(getTodo.fulfilled, (state, action) => {
+            state.status =Status.Succsess
+            state.item = action.payload
 
-        // })
-        // builder.addCase(TodoFetch.rejected, (state) => {
-        //     state.status = Status.Error
-        // })
+        })
+        builder.addCase(getTodo.rejected, (state) => {
+            state.status = Status.Error
+        })
     }
     // extraReducers: {
     //     [SearchVideo.pending]: (state, action) => {
@@ -109,6 +112,6 @@ const TodoSlise = createSlice({
 
 export const todoSelector = (state: RootState) => state.todo
 
-export const { addTodo, activSortItem,removeTodo,todoEdit } = TodoSlise.actions
+export const { addTodo, activSortItem, removeTodo, todoEdit } = TodoSlise.actions
 export default TodoSlise.reducer
 

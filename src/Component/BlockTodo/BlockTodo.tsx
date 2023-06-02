@@ -10,14 +10,10 @@ import { useAppDispatch } from '../../Redux'
 const BlockTodo: React.FC = () => {
     const { item } = useSelector(todoSelector)
     const dispatch = useAppDispatch()
-    const [completed, SetCompleted] = useState(false)
     const [todoEditing, setTodoEditing] = useState<null | number>(null);
     const [editingText, setEditingText] = useState("");
     const [todos, setTodos] = useState<ItemType[]>([]);
-    console.log(todos)
-    const handleCompleted = () => {
-        SetCompleted(!completed)
-    }
+
     const deleteId = (id: number) => {
         dispatch(removeTodo({ id } as ItemType))
     }
@@ -36,7 +32,7 @@ const BlockTodo: React.FC = () => {
 
     useEffect(() => {
         dispatch(todoEdit(todos))
-    }, [todos])
+    }, [dispatch,todos])
     return (
         <div className={s.block}>
             {
@@ -47,19 +43,17 @@ const BlockTodo: React.FC = () => {
                                 <div className={s.popup}>
                                     <p>change todo</p>
                                     <input
-                                        
                                         type="text"
                                         onChange={(e) => setEditingText(e.target.value)}
                                     />
                                 </div>
 
                             ) : ''}
-                            <input onClick={handleCompleted} type="checkbox" />
                             <div className={s.text}>{todo.text}</div>
                         </div>
                         <div className={s.todo_time}>
                             <div className={s.priority}>{todo.sort}</div>
-                            <div className={s.data}>{todo.data}</div>
+                            <div className={s.data}>{todo.date}</div>
                             <span onClick={() => deleteId(todo.id)} className={s.delete}>&times;</span>
 
                             {todo.id === todoEditing ? (
